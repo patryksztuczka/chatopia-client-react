@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  background-color: #342342;
-  color: white;
+@layer base {
+  body {
+    @apply bg-slate-100;
+  }
 }

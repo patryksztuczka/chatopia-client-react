@@ -5,12 +5,14 @@ import { ROUTES } from "../utils/constants";
 import ProtectedRoute from "../auth/protected-route";
 import PublicRoute from "../auth/public-route";
 import ErrorPage from "../components/pages/error-page";
+import RootLayout from "../components/layouts/root-layout";
 
 const ChatPage = lazy(() => import("../components/pages/chat-page"));
 const LoginPage = lazy(() => import("../components/pages/login-page"));
 
 export const router = createBrowserRouter([
   {
+    element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
       {

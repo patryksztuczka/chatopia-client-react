@@ -12,7 +12,7 @@
     },
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "@tanstack/eslint-plugin-query"],
   "parser": "@typescript-eslint/parser",
   "extends": ["airbnb", "airbnb-typescript", "plugin:@typescript-eslint/recommended", "plugin:react-hooks/recommended", "prettier"],
   "ignorePatterns": [".eslintrc.json", "vite.config.ts"],

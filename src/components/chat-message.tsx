@@ -1,9 +1,24 @@
+import clsx from 'clsx';
+
+import { TMessage } from '../utils/types/message.types';
+
 interface IChatMessageProps {
-  message: string;
+  message: TMessage;
+  isCurrentUserMessage: boolean;
 }
 
-const ChatMessage = ({ message }: IChatMessageProps) => {
-  return <div className="px-2 py-1 text-sm bg-white text-black rounded-sm shadow-md">{message}</div>;
+const ChatMessage = ({ message, isCurrentUserMessage }: IChatMessageProps) => {
+  const { messageContent } = message;
+  return (
+    <div
+      className={clsx(
+        'w-fit max-w-[70%] cursor-pointer  rounded-3xl bg-white px-3 py-2 text-sm text-black shadow-md',
+        isCurrentUserMessage ? 'self-end' : 'self-start',
+      )}
+    >
+      {messageContent}
+    </div>
+  );
 };
 
 export default ChatMessage;
