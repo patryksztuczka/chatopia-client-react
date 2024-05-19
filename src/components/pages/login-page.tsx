@@ -2,7 +2,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import Button from "../button";
 import Input from "../input";
-import { ILoginForm } from "../../utils/types/forms";
+import { ILoginForm } from "../../utils/types/forms.types";
 import { supabase } from "../../libs/supabase/config";
 
 const LoginPage = () => {

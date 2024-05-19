@@ -1,26 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import clsx from 'clsx';
 
-import { socket } from "../../libs/socketio/config";
-import ChatMessage from "../chat-message";
-import ChatInput from "../chat-input";
-import Button from "../button";
-import { supabase } from "../../libs/supabase/config";
+import { socket } from '../../libs/socketio/config';
+import { useSession } from '../../context/auth-context';
+import ConversationsList from '../conversations-list';
+import ChatWindow from '../chat-window';
+import { currentConversationAtom } from '../../atoms/conversation';
 
 const ChatPage = () => {
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [message, setMessage] = useState<string>("");
+  const session = useSession();
+  const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<string[]>([]);
+
+  const [currentConversation] = useAtom(currentConversationAtom);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    socket.emit("message:create", message);
+    socket.emit('message:create', message);
     setMessages([...messages, message]);
-    setMessage("");
-  };
-
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    socket.disconnect();
+    setMessage('');
   };
 
   useEffect(() => {
@@ -28,48 +27,54 @@ const ChatPage = () => {
       setMessages([...messages, msg]);
     }
 
-    socket.on("message:emit", receiveMessage);
+    socket.on('message:emit', receiveMessage);
 
     return () => {
-      socket.off("message:emit", receiveMessage);
+      socket.off('message:emit', receiveMessage);
     };
   }, [messages]);
 
   useEffect(() => {
-    function onConnect() {
-      setIsConnected(true);
-    }
+    if (!session) return;
 
-    function onDisconnect() {
-      setIsConnected(false);
-    }
+    socket.auth = { token: session.access_token };
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
+    socket.connect();
 
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
+      socket.disconnect();
     };
-  }, []);
+  }, [session]);
+
+  // useEffect(() => {
+  //   function onConnect() {
+  //     setIsConnected(true);
+  //   }
+
+  //   function onDisconnect() {
+  //     setIsConnected(false);
+  //   }
+
+  //   socket.on("connection", onConnect);
+  //   socket.on("disconnect", onDisconnect);
+
+  //   return () => {
+  //     socket.off("connect", onConnect);
+  //     socket.off("disconnect", onDisconnect);
+  //   };
+  // }, []);
 
   return (
-    <div className="h-dvh flex flex-col justify-between gap-6 py-5">
-      <div className="relative">
-        <h1 className="text-center font-bold text-xl">Messages</h1>
-        <div className="absolute top-1/2 -translate-y-1/2 right-6" onClick={signOut}>
-          X
-        </div>
+    <div className="flex h-full sm:gap-4">
+      <div
+        className={clsx(
+          'h-full flex-1 sm:h-fit sm:max-w-80 sm:flex-none',
+          currentConversation != null ? 'hidden sm:block' : 'sm:block',
+        )}
+      >
+        <ConversationsList />
       </div>
-      <div className="flex-1 flex gap-3 flex-col p-3 justify-end items-end bg-purple-600/10">
-        {messages.map((msg, index) => (
-          <ChatMessage key={index} message={msg} />
-        ))}
-      </div>
-      <form className="flex gap-4 px-5" onSubmit={sendMessage}>
-        <ChatInput type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
-        <Button type="submit">Send</Button>
-      </form>
+      <ChatWindow />
     </div>
   );
 };
