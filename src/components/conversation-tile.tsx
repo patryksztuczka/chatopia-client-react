@@ -1,4 +1,4 @@
-import { TConversation } from '../utils/types/conversation.types';
+import { TConversation } from '../lib/types/conversation.types';
 
 interface IConversationTileProps {
   conversation: TConversation;

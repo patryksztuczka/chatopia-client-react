@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { TMessage } from '../utils/types/message.types';
+import { TMessage } from '../lib/types/message.types';
 
 interface IChatMessageProps {
   message: TMessage;

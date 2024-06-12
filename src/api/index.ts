@@ -1,6 +1,6 @@
 import { axiosClient } from '../libs/axios/config';
-import { GetConversationsSchema } from '../utils/schemas/conversation-schemas';
-import { GetMessagesSchema } from '../utils/schemas/message-schemas';
+import { GetConversationsSchema } from '../lib/schemas/conversation-schemas';
+import { GetMessagesSchema } from '../lib/schemas/message-schemas';
 
 export const getConversations = async (userId: string | undefined) => {
   if (!userId) return;
