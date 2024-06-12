@@ -65,8 +65,8 @@ const ChatPage = () => {
   // }, []);
 
   return (
-    <div className="flex h-full sm:gap-4">
-      <div
+    <div className="flex flex-1">
+      {/* <div
         className={clsx(
           'h-full flex-1 sm:h-fit sm:max-w-80 sm:flex-none',
           currentConversation != null ? 'hidden sm:block' : 'sm:block',
@@ -74,7 +74,7 @@ const ChatPage = () => {
       >
         <ConversationsList />
       </div>
-      <ChatWindow />
+      <ChatWindow /> */}
     </div>
   );
 };

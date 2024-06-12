@@ -1,7 +1,7 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from 'react-router-dom';
 
-import { useSession } from "../context/auth-context";
-import { ROUTES } from "../utils/constants";
+import { useSession } from '../context/auth-context';
+import { ROUTES } from '../lib/constants';
 
 const ProtectedRoute = () => {
   const session = useSession();
