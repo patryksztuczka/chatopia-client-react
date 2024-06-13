@@ -7,7 +7,9 @@ import PublicRoute from '../auth/public-route';
 import ErrorPage from '../components/pages/error-page';
 import RootLayout from '../components/layouts/root-layout';
 
-const ChatPage = lazy(() => import('../components/pages/chat-page'));
+const ConversationsPage = lazy(
+  () => import('../components/pages/conversations-page'),
+);
 const LoginPage = lazy(() => import('../components/pages/login-page'));
 
 export const router = createBrowserRouter([
@@ -21,8 +23,8 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.chat,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
-                <ChatPage />
+              <Suspense fallback={<div className="p-4">Loading...</div>}>
+                <ConversationsPage />
               </Suspense>
             ),
           },

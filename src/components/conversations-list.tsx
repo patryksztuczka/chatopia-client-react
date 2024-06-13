@@ -4,8 +4,8 @@ import { useAtom } from 'jotai';
 import { useSession } from '../context/auth-context';
 import { getConversations } from '../api';
 import { currentConversationAtom } from '../atoms/conversation';
-import PrimaryHeading from './primary-heading';
 import ConversationTile from './conversation-tile';
+import { TypographyH4 } from './ui/typography-h4';
 
 const ConversationsList = () => {
   const session = useSession();
@@ -28,9 +28,9 @@ const ConversationsList = () => {
   if (error) return <div>Something went wrong...</div>;
 
   return (
-    <div className="h-full bg-white py-2 sm:rounded-sm sm:shadow-md">
-      <PrimaryHeading text="Conversations" />
-      <div className="flex flex-col gap-4">
+    <div className="h-full p-4 sm:rounded-sm sm:shadow-md">
+      <TypographyH4>Conversations</TypographyH4>
+      <div className="mt-4 flex flex-col gap-4">
         {data?.map((conversation) => (
           <ConversationTile
             key={conversation.id}

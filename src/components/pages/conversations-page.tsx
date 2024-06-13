@@ -7,6 +7,7 @@ import { useSession } from '../../context/auth-context';
 import ConversationsList from '../conversations-list';
 import ChatWindow from '../chat-window';
 import { currentConversationAtom } from '../../atoms/conversation';
+import { Separator } from '../ui/separator';
 
 const ChatPage = () => {
   const session = useSession();
@@ -65,7 +66,10 @@ const ChatPage = () => {
   // }, []);
 
   return (
-    <div className="flex flex-1">
+    <div className="flex">
+      <ConversationsList />
+      <Separator orientation="vertical" className="hidden sm:block" />
+      <ChatWindow />
       {/* <div
         className={clsx(
           'h-full flex-1 sm:h-fit sm:max-w-80 sm:flex-none',
@@ -73,8 +77,7 @@ const ChatPage = () => {
         )}
       >
         <ConversationsList />
-      </div>
-      <ChatWindow /> */}
+      </div> */}
     </div>
   );
 };

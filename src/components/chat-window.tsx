@@ -1,12 +1,14 @@
 import { useAtom } from 'jotai';
 import { useQuery } from '@tanstack/react-query';
+import { Send } from 'lucide-react';
 
 import { currentConversationAtom } from '../atoms/conversation';
 import { useSession } from '../context/auth-context';
 import { getMessages } from '../api';
 import ChatWindowHeader from './chat-window-header';
 import ChatMessage from './chat-message';
-import ChatInput from './chat-input';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 const ChatWindow = () => {
   const session = useSession();
@@ -24,14 +26,14 @@ const ChatWindow = () => {
 
   if (!currentConversation) {
     return (
-      <div className="hidden sm:flex sm:flex-1 sm:flex-col sm:gap-5 sm:rounded-lg sm:bg-gradient-to-t sm:from-cyan-200 sm:to-cyan-400 sm:p-6">
+      <div className="hidden sm:flex sm:flex-1 sm:flex-col sm:gap-5 sm:rounded-lg sm:p-6">
         Select a conversation
       </div>
     );
   }
 
   return (
-    <div className="flex flex-1 flex-col gap-5 bg-gradient-to-t from-cyan-200 to-cyan-400 p-6 sm:rounded-lg">
+    <div className="flex flex-1 flex-col gap-5 p-4 sm:rounded-lg">
       <ChatWindowHeader
         conversationName={currentConversation.name}
         returnToConversations={() => setCurrentConversation(null)}
@@ -45,7 +47,12 @@ const ChatWindow = () => {
           />
         ))}
       </div>
-      <ChatInput />
+      <div className="flex gap-2">
+        <Input type="text" placeholder="Aa" />
+        <Button type="submit" size="icon" variant="secondary">
+          <Send />
+        </Button>
+      </div>
     </div>
   );
 };

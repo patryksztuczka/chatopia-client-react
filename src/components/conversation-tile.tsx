@@ -1,4 +1,6 @@
 import { TConversation } from '../lib/types/conversation.types';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Card, CardContent } from './ui/card';
 
 interface IConversationTileProps {
   conversation: TConversation;
@@ -12,12 +14,13 @@ const ConversationTile = ({
   const { name } = conversation;
   return (
     <div
-      className="flex cursor-pointer items-center gap-2 px-2 py-1 duration-150 hover:bg-slate-100 sm:rounded-sm"
+      className="flex cursor-pointer items-center gap-2 duration-150 sm:rounded-sm"
       onClick={onClick}
     >
-      <div className="relative h-10 w-10 min-w-10 rounded-full bg-slate-200">
-        <div className="absolute bottom-0.5 right-0 h-3 w-3 min-w-3 rounded-full bg-red-500" />
-      </div>
+      <Avatar>
+        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
       <div className="flex flex-1 flex-col gap-1">
         <span className="text-md font-medium">{name}</span>
         <span className="line-clamp-1 text-sm">
